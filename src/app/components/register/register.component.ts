@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-register',
@@ -8,28 +9,40 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class RegisterComponent {
   registrationForm: FormGroup;
-  constructor(private formBuilder: FormBuilder) {
+
+  constructor(private formBuilder: FormBuilder, private http: HttpClient) {
     this.registrationForm = this.formBuilder.group({
+      name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', Validators.required],
     });
   }
+
   onSubmit() {
     if (this.registrationForm.valid) {
-      // Отримайте значення полів email та password з форми
-      const emailValue = this.registrationForm.get('email')?.value;
-      const passwordValue = this.registrationForm.get('password')?.value;
+      const registrationData = {
+        name: this.registrationForm.get('name')?.value,
+        email: this.registrationForm.get('email')?.value,
+        password: this.registrationForm.get('password')?.value,
+      };
 
-      // Виведіть значення в консоль
-      console.log('Email:', emailValue);
-      console.log('Password:', passwordValue);
-      this.registrationForm.reset();
-      // Відправка даних на сервер для створення нового користувача
-      // Ви можете використовувати Angular HttpClient для виконання HTTP-запитів на сервер.
-      // Наприклад:
-      // this.http.post('/api/register', this.registrationForm.value).subscribe(response => {
-      // });
+      this.http
+        .post<any>(
+          'https://connections-api.herokuapp.com/users/signup',
+          registrationData
+        )
+        .subscribe(
+          (response) => {
+            // Обробка успішної відповіді
+            console.log('Response from server:', response);
+            // Очищення форми
+            this.registrationForm.reset();
+          },
+          (error) => {
+            // Обробка помилки
+            console.error('Error during registration:', error);
+          }
+        );
     }
   }
 }

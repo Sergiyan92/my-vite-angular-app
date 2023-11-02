@@ -20,6 +20,22 @@
       </div>
     </div>
     <div>
+      <label for="name">Ім'я:</label>
+      <input type="name" id="name" formControlName="name" required />
+      <div
+        *ngIf="
+          registrationForm.get('name')?.invalid &&
+          (registrationForm.get('name')?.dirty ||
+            registrationForm.get('name')?.touched)
+        "
+      >
+        <div *ngIf="registrationForm.get('name')?.errors">Ім'я обов'язковe</div>
+        <div *ngIf="registrationForm.get('name')?.errors">
+          Будь ласка, введіть дійсну електронну пошту
+        </div>
+      </div>
+    </div>
+    <div>
       <label for="password">Пароль:</label>
       <input
         type="password"
