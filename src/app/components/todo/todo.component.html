@@ -1,1 +1,45 @@
-<p>todo works!</p>
+<div class="container">
+  <h2 class="text-center text-2xl font-bold">Todo</h2>
+
+  <div
+    *ngFor="let task of searchTasks(); let i = index"
+    class="flex items-center"
+  >
+    <input
+      type="checkbox"
+      [checked]="task.completed"
+      (change)="toggleTaskCompletion(task)"
+      class="mr-2"
+    />
+    <span
+      [ngClass]="{ 'line-through': task.completed }"
+      class="text-lg font-medium"
+      >{{ task.name }}</span
+    >
+    <button (click)="deleteTask(i)" class="ml-2 text-red-500">Delete</button>
+  </div>
+
+  <div class="mt-4">
+    <input
+      type="text"
+      [(ngModel)]="newTask"
+      placeholder="Enter tasks"
+      class="px-2 py-1 border border-gray-300 rounded"
+    />
+    <button
+      (click)="addTask()"
+      class="px-4 py-2 ml-2 text-white bg-blue-500 rounded"
+    >
+      Додати
+    </button>
+  </div>
+  <div class="mt-4">
+    <input
+      class="px-2 py-1 border border-gray-300 rounded"
+      type="text"
+      [(ngModel)]="searchQuery"
+      placeholder="Search tasks"
+    />
+    <label class="ml-2">Пошук за словом</label>
+  </div>
+</div>

@@ -1,1 +1,46 @@
-<p>login works!</p>
+<div *ngIf="loginForm">
+  <h2>Логінізація</h2>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="email">Електронна пошта:</label>
+      <input type="email" id="email" formControlName="email" required />
+      <div
+        *ngIf="
+          loginForm.get('email')?.invalid &&
+          (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)
+        "
+      >
+        <div *ngIf="loginForm.get('email')?.errors?.['required']">
+          Електронна пошта обов'язкова
+        </div>
+        <div *ngIf="loginForm.get('email')?.errors?.['email']">
+          Будь ласка, введіть дійсну електронну пошту
+        </div>
+      </div>
+    </div>
+    <div>
+      <label for="password">Пароль:</label>
+      <input
+        type="password"
+        id="password"
+        formControlName="password"
+        required
+      />
+      <div
+        *ngIf="
+          loginForm.get('password')?.invalid &&
+          (loginForm.get('password')?.dirty ||
+            loginForm.get('password')?.touched)
+        "
+      >
+        <div *ngIf="loginForm.get('password')?.errors?.['required']">
+          Пароль обов'язковий
+        </div>
+        <div *ngIf="loginForm.get('password')?.errors?.['minlength']">
+          Пароль повинен містити щонайменше 6 символів
+        </div>
+      </div>
+    </div>
+    <button type="submit">Логін</button>
+  </form>
+</div>
