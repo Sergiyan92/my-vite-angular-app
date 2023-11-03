@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -10,7 +10,11 @@ import { HttpClient } from '@angular/common/http';
 export class RegisterComponent {
   registrationForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private http: HttpClient) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private http: HttpClient,
+    private router: Router
+  ) {
     this.registrationForm = this.formBuilder.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -37,9 +41,11 @@ export class RegisterComponent {
             console.log('Response from server:', response);
             // Очищення форми
             this.registrationForm.reset();
+            this.router.navigate(['/todo']);
           },
           (error) => {
             // Обробка помилки
+            alert('Ups ERROR');
             console.error('Error during registration:', error);
           }
         );

@@ -1,29 +1,44 @@
-<div *ngIf="loginForm">
-  <h2>Логінізація</h2>
+<div
+  *ngIf="loginForm"
+  class="max-w-md mx-auto my-10 p-6 bg-blue-200 rounded-md shadow-md"
+>
+  <h2 class="text-2xl font-bold mb-10 text-center">Login</h2>
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <div>
-      <label for="email">Електронна пошта:</label>
-      <input type="email" id="email" formControlName="email" required />
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="email"
+        >Email:</label
+      >
+      <input
+        class="w-full px-3 py-2 border rounded-md outline-none focus:ring-2 focus:ring-blue-400"
+        type="email"
+        id="email"
+        formControlName="email"
+        required
+      />
       <div
         *ngIf="
           loginForm.get('email')?.invalid &&
           (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)
         "
+        class="text-red-500 text-sm mt-1"
       >
         <div *ngIf="loginForm.get('email')?.errors?.['required']">
-          Електронна пошта обов'язкова
+          Email is required
         </div>
         <div *ngIf="loginForm.get('email')?.errors?.['email']">
-          Будь ласка, введіть дійсну електронну пошту
+          Please enter a valid email address
         </div>
       </div>
     </div>
-    <div>
-      <label for="password">Пароль:</label>
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="password"
+        >Password:</label
+      >
       <input
         type="password"
         id="password"
         formControlName="password"
+        class="w-full px-3 py-2 border rounded-md outline-none focus:ring-2 focus:ring-blue-400"
         required
       />
       <div
@@ -32,15 +47,30 @@
           (loginForm.get('password')?.dirty ||
             loginForm.get('password')?.touched)
         "
+        class="text-red-500 text-sm mt-1"
       >
         <div *ngIf="loginForm.get('password')?.errors?.['required']">
-          Пароль обов'язковий
+          Password is required
         </div>
         <div *ngIf="loginForm.get('password')?.errors?.['minlength']">
-          Пароль повинен містити щонайменше 6 символів
+          Password must contain at least 7 characters
         </div>
       </div>
     </div>
-    <button type="submit">Логін</button>
+    <div class="flex items-center justify-center mt-6">
+      <button
+        type="submit"
+        [disabled]="!loginForm.valid"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+      >
+        Login
+      </button>
+    </div>
   </form>
+  <span class="flex justify-center mt-1"
+    >Don't have an account? Go to the page.
+    <a routerLink="/" class="text-blue-900 ml-1 font-semibold"
+      >Registration</a
+    ></span
+  >
 </div>

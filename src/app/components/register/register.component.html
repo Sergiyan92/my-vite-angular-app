@@ -1,46 +1,73 @@
-<div *ngIf="registrationForm">
-  <h2>Реєстрація нового користувача</h2>
+<div
+  *ngIf="registrationForm"
+  class="max-w-md mx-auto my-10 p-6 bg-blue-200 rounded-md shadow-md"
+>
+  <h2 class="text-2xl font-bold mb-10 text-center">Register new user</h2>
   <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
-    <div>
-      <label for="email">Електронна пошта:</label>
-      <input type="email" id="email" formControlName="email" required />
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="email"
+        >Email:</label
+      >
+      <input
+        class="w-full px-3 py-2 border rounded-md outline-none focus:ring-2 focus:ring-blue-400"
+        type="email"
+        id="email"
+        formControlName="email"
+        required
+      />
       <div
         *ngIf="
           registrationForm.get('email')?.invalid &&
           (registrationForm.get('email')?.dirty ||
             registrationForm.get('email')?.touched)
         "
+        class="text-red-500 text-sm mt-1"
       >
         <div *ngIf="registrationForm.get('email')?.errors">
-          Електронна пошта обов'язкова
+          Email is required
         </div>
         <div *ngIf="registrationForm.get('email')?.errors">
-          Будь ласка, введіть дійсну електронну пошту
+          Please enter a valid email address
         </div>
       </div>
     </div>
-    <div>
-      <label for="name">Ім'я:</label>
-      <input type="name" id="name" formControlName="name" required />
+    <div class="mb-4">
+      <label
+        class="block text-gray-700 text-sm font-bold mb-2"
+        for="email"
+        for="name"
+        >Name:</label
+      >
+      <input
+        type="name"
+        id="name"
+        formControlName="name"
+        class="w-full px-3 py-2 border rounded-md outline-none focus:ring-2 focus:ring-blue-400"
+        required
+      />
       <div
         *ngIf="
           registrationForm.get('name')?.invalid &&
           (registrationForm.get('name')?.dirty ||
             registrationForm.get('name')?.touched)
         "
+        class="text-red-500 text-sm mt-1"
       >
-        <div *ngIf="registrationForm.get('name')?.errors">Ім'я обов'язковe</div>
+        <div *ngIf="registrationForm.get('name')?.errors">Name is required</div>
         <div *ngIf="registrationForm.get('name')?.errors">
-          Будь ласка, введіть дійсну електронну пошту
+          Please enter a valid name
         </div>
       </div>
     </div>
-    <div>
-      <label for="password">Пароль:</label>
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="password"
+        >Password:</label
+      >
       <input
         type="password"
         id="password"
         formControlName="password"
+        class="w-full px-3 py-2 border rounded-md outline-none focus:ring-2 focus:ring-blue-400"
         required
       />
       <div
@@ -49,21 +76,27 @@
           (registrationForm.get('password')?.dirty ||
             registrationForm.get('password')?.touched)
         "
+        class="text-red-500 text-sm mt-1"
       >
         <div *ngIf="registrationForm.get('password')?.errors">
-          Пароль обов'язковий
+          Password is required
         </div>
         <div *ngIf="registrationForm.get('password')?.errors">
-          Пароль повинен містити щонайменше 6 символів
+          Password must contain at least 7 characters
         </div>
       </div>
     </div>
-    <div>
-      <label for="confirmPassword">Підтвердження пароля:</label>
+    <div class="mb-4">
+      <label
+        class="block text-gray-700 text-sm font-bold mb-2"
+        for="confirmPassword"
+        >Confirm Password:</label
+      >
       <input
         type="password"
         id="confirmPassword"
         formControlName="confirmPassword"
+        class="w-full px-3 py-2 border rounded-md outline-none focus:ring-2 focus:ring-blue-400"
         required
       />
       <div
@@ -72,14 +105,27 @@
           (registrationForm.get('confirmPassword')?.dirty ||
             registrationForm.get('confirmPassword')?.touched)
         "
+        class="text-red-500 text-sm mt-1"
       >
         <div *ngIf="registrationForm.get('confirmPassword')?.errors">
-          Підтвердження пароля обов'язкове
+          Confirm password is required
         </div>
       </div>
     </div>
-    <button type="submit" [disabled]="!registrationForm.valid">
-      Зареєструватися
-    </button>
+    <div class="flex items-center justify-center mt-6">
+      <button
+        type="submit"
+        [disabled]="!registrationForm.valid"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+      >
+        Register
+      </button>
+    </div>
   </form>
+  <span class="flex justify-center mt-1"
+    >Already have an account? Go to the page
+    <a routerLink="/login" class="text-blue-900 ml-1 font-semibold"
+      >Login</a
+    ></span
+  >
 </div>
