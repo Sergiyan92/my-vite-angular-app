@@ -9,6 +9,7 @@ import { TodoComponent } from './components/todo/todo.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NavigationComponent } from './components/navigation/navigation.component';
+import { LogoutComponent } from './components/logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { NavigationComponent } from './components/navigation/navigation.componen
     LoginComponent,
     TodoComponent,
     NavigationComponent,
+    LogoutComponent,
   ],
   imports: [
     BrowserModule,
