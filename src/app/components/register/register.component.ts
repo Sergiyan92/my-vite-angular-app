@@ -40,6 +40,7 @@ export class RegisterComponent {
             // Обробка успішної відповіді
             console.log('Response from server:', response);
             // Очищення форми
+            localStorage.setItem('token', response.token);
             this.registrationForm.reset();
             this.router.navigate(['/todo']);
           },

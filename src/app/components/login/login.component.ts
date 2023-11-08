@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -28,11 +28,33 @@ export class LoginComponent {
         email: this.loginForm.get('email')?.value,
         password: this.loginForm.get('password')?.value,
       };
+
       this.http
         .post('https://connections-api.herokuapp.com/users/login', loginData)
         .subscribe(
-          (res) => {
+          (res: any) => {
             console.log('Resp from server', res);
+            const token = res.token;
+            localStorage.setItem('token', token);
+
+            // Встановлення заголовка авторизації
+            const headers = new HttpHeaders().set(
+              'Authorization',
+              `Bearer ${token}`
+            );
+            this.http
+              .get('https://connections-api.herokuapp.com', { headers })
+              .subscribe(
+                (secureRes) => {
+                  console.log('Secure response', secureRes);
+                  // Додатковий код, який обробляє відповідь сервера
+                },
+                (error) => {
+                  // Обробка помилки
+                  console.error('Error during secure request:', error);
+                }
+              );
+
             this.loginForm.reset();
             this.router.navigate(['/todo']);
           },
